@@ -11,10 +11,10 @@
 
 #
 # 忽略掉所有文件名是 .classpath的文件.
-/.classpath
-/.project
+.classpath
+.project
 .prefs
-/.settings
+.settings
 /target
 .idea
 .editorconfig
