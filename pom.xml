@@ -1,0 +1,87 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>hzm.deadlocal</groupId>
+  <artifactId>dlparent</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  
+  <!-- 聚合工程子模块 -->
+  <modules>
+  	<module>dlpractice</module>
+  </modules>
+  
+  <properties>
+  	<junit.version>4.9</junit.version>
+  </properties>
+  
+  <dependencyManagement>
+  	<dependencies>
+  		<!-- junit -->
+  		<dependency>
+  			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+  			<scope>test</scope>
+  		</dependency>
+  		
+  	</dependencies>
+  </dependencyManagement>
+  
+  <!-- build中包含了maven构建当前项目需要的信息 -->
+  <build>
+  	<!-- 插件配置 -->
+  	<pluginManagement>
+  		<plugins>
+  			<!-- maven 编译插件 -->
+  			<plugin>
+  				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+					<encoding>UTF-8</encoding>
+				</configuration>
+  			</plugin>
+  			<!-- maven 编译插件 -->
+  			<plugin>
+  				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<configuration>
+					<!-- 端口号可以任意配置，这里因为nexus的tomcat配置的是8080，所以这里就配置8081 -->
+					<port>8081</port>
+					<path/>
+				</configuration>
+  			</plugin>
+  		</plugins>
+  	</pluginManagement>
+  </build>
+  <!-- nexus 私服配置 可以放在setting.xml中，详情请看D:\mvn_repository_dead_local\下的setting.xml -->
+  <!-- nexus 私服配置  maven从nexus下载jar
+  <repositories>
+	<repository>
+       <id>center</id>
+       <url>http://localhost:8080/nexus-2.7.0-06/content/groups/hzm-repository-group/</url>
+       <releases>
+          <enabled>true</enabled>
+       </releases>
+       <snapshots>
+         <enabled>false</enabled>
+       </snapshots>
+    </repository>
+  </repositories>-->
+  <!-- nexus 私服配置  maven从nexus下载插件jar
+  <pluginRepositories>
+  	<pluginRepository>
+  	   <id>center</id>
+       <url>http://localhost:8080/nexus-2.7.0-06/content/groups/hzm-repository-group/</url>
+       <releases>
+          <enabled>true</enabled>
+       </releases>
+       <snapshots>
+         <enabled>false</enabled>
+       </snapshots>
+  	</pluginRepository>
+  </pluginRepositories>	-->
+  
+</project>
