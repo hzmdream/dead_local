@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+  <!-- localRepository
+   | The path to the local repository maven will use to store artifacts.
+   |
+   | Default: ${user.home}/.m2/repository
+  <localRepository>/path/to/local/repo</localRepository>
+  -->
+  <!-- 本地仓库路径 -->
+  <localRepository>D:/mvn_repository_dead_local</localRepository>
+
+  
+  <!--配置部署构件至nexus-->
+  <!--nexus 的仓库对于匿名用户是只读的。
+		为了能够部署构件，需要使用servers配置认证信息
+  -->
+  <servers>
+	<server>
+      <id>nexus-repositories-releases</id>
+      <username>admin</username>
+      <password>admin123</password>
+    </server>
+	<server>
+      <id>nexus-repositories-snapshots</id>
+      <username>admin</username>
+      <password>admin123</password>
+    </server>
+  </servers>
+  <distributionManagement>
+	<repository>
+		<id>nexus-repositories-releases</id>
+		<name>Nexus Releases Repository</name>
+		<url>http://localhost:8080/nexus-2.7.0-06/content/repositories/hzm-hosted-releases-repository/</url>
+	</repository>
+	<snapshotsRepository>
+		<id>nexus-repositories-snapshots</id>
+		<name>Nexus Snapshots Repository</name>
+		<url>http://localhost:8080/nexus-2.7.0-06/content/repositories/hzm-hosted-snapshots-repository/</url>
+	</snapshotsRepository>
+  </distributionManagement>
+  <!-- mirrors maven镜像配置
+			mirror相当于一个拦截器，它会拦截maven对remote repository的相关请求，把请求里的remote repository地址，重定向到mirror里配置的地址。
+			
+			如果仓库X可以提供仓库Y存储的所有内容，那么就可以认为X是Y的一个镜像。换句话说，任何一个可以从仓库Y获得的构件，都胡够从它的镜像中获取。
+	-->
+  <!--配置maven从nexus下载构件-->
+  <mirrors>
+    <mirror>
+      <id>nexus</id>
+	  <!--
+		<mirrorOf></mirrorOf> 放置的是要被镜像的Repository ID 
+		
+		<mirrorOf>*</mirrorOf>  匹配所有远程仓库
+		<mirrorOf>repo1,repo2</mirrorOf>  匹配仓库repo1和repo2，使用逗号分隔多个远程仓库
+		<mirrorOf>*,!repo1</miiroOf> 匹配所有远程仓库，repo1除外，使用感叹号将仓库从匹配中排除
+	  -->
+      <mirrorOf>*</mirrorOf>
+      <name>Human Readable Name for this Mirror.</name>
+      <url>http://localhost:8080/nexus-2.7.0-06/content/groups/hzm-repository-group/</url>
+    </mirror>
+     
+  </mirrors>
+  <profiles>
+	<profile>
+	  <id>nexus-repositories</id>
+	  <repositories>
+		<repository>
+		  <!-- id 必须为center，这样才能覆盖超级pom中的center仓库配置-->
+		  <id>center</id>
+		  <name>Repository for center</name>
+		  <url>http://localhost:8080/nexus-2.7.0-06/content/groups/hzm-repository-group/</url>
+		  <!--true或者false表示该仓库是否为下载某种类型构件（发布版，快照版）开启。  -->
+		  <release><enable>true</enable></release>
+		  <snapshots><enable>false</enable></snapshots>
+		</repository>
+	  </repositories>
+	  <pluginRepositorys>
+		  <!-- id 必须为center，这样才能覆盖超级pom中的center仓库配置-->
+		  <id>center</id>
+		  <name>pluginRepositorys for center</name>
+		  <url>http://localhost:8080/nexus-2.7.0-06/content/groups/hzm-repository-group/</url>
+		  <!--true或者false表示该仓库是否为下载某种类型构件（发布版，快照版）开启。  -->
+		  <release><enable>true</enable></release>
+		  <snapshots><enable>false</enable></snapshots>
+		</pluginRepositorys>
+	</profile>
+  </profiles>
+  <!--手动激活profiles的列表，按照profile被应用的顺序定义activeProfile。 该元素包含了一组activeProfile元素，每个activeProfile都含有一个profile id。任何在activeProfile中定义的profile id，不论环境设置如何，其对应的
+        profile都会被激活。如果没有匹配的profile，则什么都不会发生。例如，nexus-repositories是一个activeProfile，则在pom.xml（或者profile.xml）中对应id的profile会被激活。如果运行过程中找不到这样一个profile，Maven则会像往常一样运行。 -->
+    
+  <activeProfiles>
+	<activeProfile>nexus-repositories</activeProfile>
+  </activeProfiles>
+  
+  
+  <!-- 配置参考博客文章网址-->
+  <!--http://www.cnblogs.com/yangxia-test/p/4409736.html-->
+</settings>
