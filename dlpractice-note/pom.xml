@@ -5,15 +5,5 @@
     <artifactId>dlparent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <artifactId>dlpractice</artifactId>
-  <packaging>jar</packaging>
-  
-  <dependencies>
-  		<!-- junit -->
-  		<dependency>
-  			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<scope>test</scope>
-  		</dependency>
-   </dependencies>
+  <artifactId>dlpractice-note</artifactId>
 </project>

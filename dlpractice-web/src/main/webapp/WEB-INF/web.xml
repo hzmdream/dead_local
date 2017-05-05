@@ -1,21 +1,171 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-	version="2.5">
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" version="3.1">
 	<welcome-file-list>
-		<welcome-file>index.html</welcome-file>
+	  <welcome-file>index.html</welcome-file>
 	</welcome-file-list>
-	
-	<!-- 开启 SpringIOC 负责启动Spring容器的监听器，将引用context-param的上下文参数获得Spring配置文件地址 -->
-	<!-- needed for ContextLoaderListener -->
+
+	<!--Spring的ApplicationContext 配置文件 -->
 	<context-param>
-		<param-name>contextConfigLocation</param-name>
-		<param-value>classpath:applicationContext*.xml</param-value>
+	  <param-name>contextConfigLocation</param-name>
+	  <param-value>classpath:spring_config/applicationContext*.xml</param-value>
 	</context-param>
-	<!-- Bootstraps the root web application context before servlet initialization -->
+	<!--Spring的ApplicationContext 载入 -->
 	<listener>
-		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	  <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
+  
+  
+	<!-- 编码过滤器，以UTF8编码 -->
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF8</param-value>
+		</init-param>
+		<init-param>  
+            <param-name>forceEncoding</param-name>  
+            <param-value>true</param-value>  
+        </init-param>
+	 </filter>
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+  
+	<!-- 配置SpringMVC框架入口 -->
+	<servlet>
+		<servlet-name>dead_local</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:spring_config/applicationContext-springmvc.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
 	
+	<servlet-mapping>
+		<servlet-name>dead_local</servlet-name>
+		<!-- 
+			struts2可以配置/*是因为struts2是Filter过滤器实现，Filter可以配置/*
+			springmvc不可以配置/*是因为springmvc是Servlet实现，Servlet不可以配置/*
+			可以：
+				*.xxx
+				/xxx/*
+				/
+			不可以：
+				/*
+	 	-->
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+	
+	<!-- 解决PUT请求无法提交表单数据的问题 -->
+	<filter>
+		<filter-name>HttpMethodFilter</filter-name>
+		<filter-class>org.springframework.web.filter.HttpPutFormContentFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>HttpMethodFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<!-- 将POST请求转化为DELETE或者是PUT 要用_method指定真正的请求参数 -->
+	<filter>
+		<filter-name>HiddenHttpMethodFilter</filter-name>
+		<filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>HiddenHttpMethodFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	
+	
+	<!-- druid配置 -->
+	<servlet> 
+	    <servlet-name>DruidStatView</servlet-name> 
+	    <servlet-class>com.alibaba.druid.support.http.StatViewServlet</servlet-class> 
+	</servlet> 
+	
+	<servlet-mapping> 
+	    <servlet-name>DruidStatView</servlet-name> 
+	    <url-pattern>/druid/*</url-pattern> 
+	</servlet-mapping> 
+	<filter> 
+		<filter-name>druidWebStatFilter</filter-name> 
+		<filter-class>com.alibaba.druid.support.http.WebStatFilter</filter-class> 
+		<init-param> 
+			<param-name>exclusions</param-name> 
+			<param-value>/public/*,*.js,*.css,/druid*,*.jsp,*.swf</param-value> 
+		</init-param> 
+		<init-param> 
+			<param-name>principalSessionName</param-name> 
+			<param-value>sessionInfo</param-value> 
+		</init-param> 
+		<init-param> 
+			<param-name>profileEnable</param-name> 
+			<param-value>true</param-value> 
+		</init-param> 
+	</filter> 
+	<filter-mapping> 
+		<filter-name>druidWebStatFilter</filter-name> 
+		<url-pattern>/*</url-pattern> 
+	</filter-mapping>
+	
+	
+	<filter>  
+        <filter-name>SessionFilter</filter-name>  
+        <filter-class>org.springframework.orm.hibernate4.support.OpenSessionInViewFilter</filter-class>
+        <!-- 在使用opensessioninviewFilter时，session的flushMode默认是never的，如果想要进行保存，更新等操作，必须要修改session的flushMode -->  
+        <init-param>  
+	        <param-name>flushMode</param-name>  
+	        <param-value>AUTO</param-value>  
+    	</init-param>
+    </filter>  
+    <filter-mapping>  
+        <filter-name>SessionFilter</filter-name>  
+        <url-pattern>/*</url-pattern>  
+    </filter-mapping>  
+	
+	
+	<context-param>  
+         <param-name>logbackConfigLocation</param-name>  
+         <param-value>classpath:logback_config/logback.xml</param-value>  
+	</context-param>  
+	<listener>  
+         <listener-class>ch.qos.logback.ext.spring.web.LogbackConfigListener</listener-class>  
+	</listener> 
+  <!-- ServletContext初始化 参数运用 测试 -->
+  <!-- <context-param>
+    <param-name>佛祖</param-name>
+    <param-value>如来</param-value>
+  </context-param>
+  <context-param>
+    <param-name>智者</param-name>
+    <param-value>菩提</param-value>
+  </context-param> -->
+  
+  <!-- Servlet及初始化 参数运用 测试 -->
+  <!-- <servlet>
+    <description></description>
+    <display-name>HelloWorldServlet</display-name>
+    <servlet-name>HelloWorldServlet</servlet-name>
+    <servlet-class>com.hzm.test.servlet.helloworld.HelloWorldServlet</servlet-class>
+    <init-param>
+      <param-name>hou</param-name>
+      <param-value>zhiming</param-value>
+    </init-param>
+    <init-param>
+      <param-name>sun</param-name>
+      <param-value>wukong</param-value>
+    </init-param>
+    <load-on-startup>0</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>HelloWorldServlet</servlet-name>
+    <url-pattern>/helloworld</url-pattern>
+  </servlet-mapping> -->
+  
+ 
+  
 </web-app>

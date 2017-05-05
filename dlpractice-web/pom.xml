@@ -9,6 +9,35 @@
   <packaging>war</packaging>
   
   <dependencies>
+  <!-- junit -->
+	<dependency>
+		<groupId>junit</groupId>
+		<artifactId>junit</artifactId>
+		<scope>test</scope>
+	</dependency>
+  	<!-- dlutils -->
+  	<dependency>
+	   	<groupId>hzm.deadlocal</groupId>
+	    <artifactId>dlutils</artifactId>
+	    <version>0.0.1-SNAPSHOT</version>
+  	</dependency>
+  
+  	<!-- redis cache client jedis -->
+	<dependency>
+		<groupId>redis.clients</groupId>
+		<artifactId>jedis</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework.data</groupId>
+		<artifactId>spring-data-redis</artifactId>
+	</dependency>
+	
+	<!-- druid -->
+	<dependency>
+	    <groupId>com.alibaba</groupId>
+	    <artifactId>druid</artifactId>
+	</dependency>
+	
   	<!-- springframework -->
 	<dependency>
 		<groupId>org.springframework</groupId>
@@ -54,8 +83,90 @@
 		<groupId>org.springframework</groupId>
 		<artifactId>spring-webmvc</artifactId>
 	</dependency>
+	<dependency>
+		<groupId>aspectj</groupId>
+		<artifactId>aspectjrt</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>aspectj</groupId>
+		<artifactId>aspectjweaver</artifactId>
+	</dependency>
+	<!-- jdbc -->
+	<dependency>
+		<groupId>mysql</groupId>
+  		<artifactId>mysql-connector-java</artifactId>
+	</dependency>
+	<!-- hibernate -->
+	<dependency>
+		<groupId>org.hibernate</groupId>
+		<artifactId>hibernate-commons-annotations</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.hibernate</groupId>
+		<artifactId>hibernate-core</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.hibernate</groupId>
+		<artifactId>hibernate-entitymanager</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.hibernate</groupId>
+		<artifactId>hibernate-ehcache</artifactId>
+	</dependency>
+	<!-- servlet-api 如果不添加，servlet相关类导入会报错-->
+	<dependency>
+		<groupId>javax.servlet</groupId>
+		<artifactId>javax.servlet-api</artifactId>
+		<scope>provided</scope>
+	</dependency>
+	<!-- servlet-jsp-api -->
+	<dependency>
+		<groupId>javax.servlet.jsp</groupId>
+		<artifactId>jsp-api</artifactId>
+		<scope>provided</scope>
+	</dependency>
+	<!-- logback -->
+	<dependency> 
+	    <groupId>ch.qos.logback</groupId> 
+	    <artifactId>logback-access</artifactId> 
+	</dependency> 
+	<dependency> 
+	    <groupId>ch.qos.logback</groupId> 
+	    <artifactId>logback-core</artifactId> 
+	</dependency> 
+	<dependency> 
+	    <groupId>ch.qos.logback</groupId> 
+	    <artifactId>logback-classic</artifactId> 
+	</dependency> 
+	<dependency>  
+	    <groupId>org.logback-extensions</groupId>  
+	    <artifactId>logback-ext-spring</artifactId>  
+	</dependency>  
+	<dependency>  
+	    <groupId>org.slf4j</groupId>  
+	    <artifactId>jcl-over-slf4j</artifactId>  
+	</dependency>
 	
-	<!--  -->
-	
+	<!-- lucene -->
+	<dependency>
+		<groupId>org.apache.lucene</groupId>
+		<artifactId>lucene-core</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.apache.lucene</groupId>
+		<artifactId>lucene-analyzers-common</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.apache.lucene</groupId>
+		<artifactId>lucene-queryparser</artifactId>
+	</dependency>
+	<!-- <dependency>
+		<groupId>org.apache.lucene</groupId>
+		<artifactId>lucene-highlighter</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.apache.lucene</groupId>
+		<artifactId>lucene-queries</artifactId>
+	</dependency> -->
   </dependencies>
 </project>
