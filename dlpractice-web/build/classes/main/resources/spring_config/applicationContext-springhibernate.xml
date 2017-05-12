@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.1.xsd">
+
+	<!-- 加载jdbc.properties配置文件 dl.dlutils.utils.security.EncryptablePropertyPlaceholderConfigurer-->
+	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<!-- 使用多个PropertyPlaceholderConfigurer来分散配置，达到整合多工程下的多个分散的Properties文件,
+		需要使用order属性区分多个PropertyPlaceholderConfigurer，order属性代表其加载顺序-->
+		<property name="order" value="1" />
+		<!-- 允许JVM参数覆盖 -->
+		<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE"/>
+		<!-- 忽略没有找到的资源文件
+			 是否忽略不可解析的Placeholder，如配置了多个PropertyPlaceholderConfigurer，则需设置为true
+		-->
+		<property name="ignoreUnresolvablePlaceholders" value="true"/>
+		<!-- 配置资源文件 -->
+		<property name="locations">
+			<list>
+				<!-- 使用list属性可以配置多个value -->
+				<value>classpath:spring_config/jdbc.properties</value>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 定义druid数据源 -->
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close"  init-method="init">
+		<property name="driverClassName" value="${jdbc.driverClass}" /> 
+		<property name="url" value="${jdbc.url}" /> 
+		<property name="username" value="${jdbc.username}" /> 
+		<property name="password" value="${jdbc.password}" /> 
+		<!-- 配置初始化大小、最小、最大 --> 
+		<property name="initialSize" value="1" /> 
+		<property name="minIdle" value="1" /> 
+		<property name="maxActive" value="10" />
+		<!-- 配置获取连接等待超时的时间 --> 
+		<property name="maxWait" value="10000" />
+		<!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 --> 
+		<property name="timeBetweenEvictionRunsMillis" value="60000" />
+		<!-- 配置一个连接在池中最小生存的时间，单位是毫秒 --> 
+		<property name="minEvictableIdleTimeMillis" value="300000" />
+		<property name="testWhileIdle" value="true" />
+		<!-- 这里建议配置为TRUE，防止取到的连接不可用 --> 
+		<property name="testOnBorrow" value="true" /> 
+		<property name="testOnReturn" value="false" />
+		<!-- 打开PSCache，并且指定每个连接上PSCache的大小 --> 
+		<property name="poolPreparedStatements" value="true" /> 
+		<property name="maxPoolPreparedStatementPerConnectionSize" value="20" />
+		<!-- 这里配置提交方式，默认就是TRUE，可以不用配置 -->
+		<property name="defaultAutoCommit" value="true" />
+		<!-- 验证连接有效与否的SQL，不同的数据配置不同 --> 
+		<property name="validationQuery" value="select 1 " /> 
+		<property name="filters" value="stat" /> 
+		<property name="proxyFilters"> 
+			<list> 
+			 <ref bean="logFilter" /> 
+			</list> 
+		</property> 
+	</bean>
+	<bean id="logFilter" class="com.alibaba.druid.filter.logging.Slf4jLogFilter"> 
+		<property name="statementExecutableSqlLogEnable" value="false" /> 
+	</bean>
+	
+	
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">true</prop>
+				<prop key="hibernate.query.factory_class">org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory</prop>
+				<prop key="hibernate.cache.use_second_level_cache">false</prop>
+				<prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</prop>
+				<prop key="hibernate.cache.use_query_cache">false</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.default_schema">${jdbc.schema}</prop>
+			</props>
+		</property>
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<property name="packagesToScan">
+			<list>
+				<value>com.usky</value>
+			</list>
+		</property>
+	</bean>
+	
+	
+	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager"> 
+		<property name="sessionFactory" ref="sessionFactory" /> 
+		<property name="dataSource" ref="dataSource" /> 
+	</bean>
+	
+	<!-- 事务控制 -->
+	<tx:advice id="hibernateTxAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="do*" propagation="REQUIRED" />
+            <tx:method name="*" read-only="false" />
+		</tx:attributes>
+	</tx:advice>
+	
+	<aop:aspectj-autoproxy />
+	
+	<aop:config proxy-target-class="true">
+		<aop:advisor pointcut="execution(* dl..service.support..*ServiceImpl.*(..))) " advice-ref="hibernateTxAdvice"/>		
+	</aop:config>
+	
+</beans>

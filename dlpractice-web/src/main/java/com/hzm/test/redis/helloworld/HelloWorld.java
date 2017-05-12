@@ -25,20 +25,20 @@ public class HelloWorld {
      */  
 	
 	public static void main(String[] args) {
-	/*	ApplicationContext ac =  new ClassPathXmlApplicationContext("classpath:applicationContext-redis.xml");
+		/*ApplicationContext ac =  new ClassPathXmlApplicationContext("classpath:applicationContext-redis.xml");
         RedisClientTemplate jedisCluster = (RedisClientTemplate)ac.getBean("jedisCluster");
         jedisCluster.set("a", "abc");
         System.out.println(jedisCluster.get("a"));*/
-//		ApplicationContext ac =  new ClassPathXmlApplicationContext("classpath:spring_config/applicationContext-redis.xml");
-//		JedisCluster jedisCluster = (JedisCluster)ac.getBean("jedisCluster");
-//		jedisCluster.set("a", "abc");
-//        System.out.println(jedisCluster.get("a"));
-		try {
+		ApplicationContext ac =  new ClassPathXmlApplicationContext("classpath:spring_config/applicationContext-redis.xml");
+		JedisCluster jedisCluster = (JedisCluster)ac.getBean("jedisCluster");
+		jedisCluster.set("a", "abc");
+        System.out.println(jedisCluster.get("a"));
+		/*try {
 			transactionalForRedis();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 	}
 	
 	@Transactional
