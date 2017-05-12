@@ -1,4 +1,4 @@
-package dl.test.lucene.pojo;
+package com.hzm.test.lucene.pojo;
 
 import java.io.Serializable;
 

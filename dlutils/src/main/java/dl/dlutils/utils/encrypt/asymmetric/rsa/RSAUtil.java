@@ -1,4 +1,4 @@
-package dl.dlutils.utils.rsa;
+package dl.dlutils.utils.encrypt.asymmetric.rsa;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -26,9 +26,9 @@ public class RSAUtil {
 	/** 指定key的大小 */
 	private static int KEYSIZE = 1024;
 	/** 指定公钥存放文件 */
-	private static String PUBLIC_KEY_FILE = "F:/tools_dead_local/apache-tomcat-8.0.41/webapps/dlpractice-web/encrypt_key/PublicKey";
+	private static String PUBLIC_KEY_FILE = "F:/encrypt_file/rsa/PublicKey";
 	/** 指定私钥存放文件 */
-	private static String PRIVATE_KEY_FILE = "F:/tools_dead_local/apache-tomcat-8.0.41/webapps/dlpractice-web/encrypt_key/PrivateKey";
+	private static String PRIVATE_KEY_FILE = "F:/encrypt_file/rsa/PrivateKey";
 	//IO流读取文件实际上是通过获取到相对项目路径，或者是文件的绝对路径下的文件的形式来进行流获取的
 	/**
 	* 生成密钥对

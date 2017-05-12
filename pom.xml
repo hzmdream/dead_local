@@ -20,6 +20,7 @@
   
   <properties>
   	<junit.version>4.9</junit.version>
+  	<tomcat.version>8.0.0-RC5</tomcat.version>
 	<spring.version>4.1.6.RELEASE</spring.version>
 	<mysql.version>5.1.32</mysql.version>
 	<hibernate.version>4.3.8.Final</hibernate.version>
@@ -46,7 +47,13 @@
 			<version>${junit.version}</version>
   			<scope>test</scope>
   		</dependency>
-  		
+  		<!-- maven自动部署项目到tomcat8 -->
+  		 <dependency>  
+            <groupId>org.apache.tomcat</groupId>  
+            <artifactId>tomcat-servlet-api</artifactId>  
+            <version>${tomcat.version}</version>  
+            <scope>provided</scope>  
+        </dependency> 
   		<!-- servlet-api 如果不添加，servlet相关类导入会报错-->
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -291,6 +298,7 @@
   			<plugin>
   				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
 				<configuration>
 					<source>1.7</source>
 					<target>1.7</target>
@@ -301,7 +309,12 @@
   			<plugin>
   				<groupId>org.apache.tomcat.maven</groupId>
 				<artifactId>tomcat7-maven-plugin</artifactId>
+				<version>2.2</version>
 				<configuration>
+					<url>http://localhost:8081/manager/text</url>  
+                    <username>tomcat</username>  
+                    <password>tomcat</password>  
+                    <!-- <path>/dlpractice-web</path> -->
 					<!-- 端口号可以任意配置，这里因为nexus的tomcat配置的是8080，所以这里就配置8081 -->
 					<port>8081</port>
 					<path>/</path>
@@ -319,6 +332,18 @@
   		</plugins>
   	</pluginManagement>
   </build>
+  <distributionManagement>
+	<repository>
+		<id>nexus-repositories-releases</id>
+		<name>Nexus Releases Repository</name>
+		<url>http://localhost:8080/nexus-2.7.0-06/content/repositories/hzm-hosted-releases-repository/</url>
+	</repository>
+	<snapshotRepository>
+		<id>nexus-repositories-snapshots</id>
+		<name>Nexus Snapshots Repository</name>
+		<url>http://localhost:8080/nexus-2.7.0-06/content/repositories/hzm-hosted-snapshots-repository/</url>
+	</snapshotRepository>
+  </distributionManagement>
   <!-- nexus 私服配置 可以放在setting.xml中，详情请看D:\mvn_repository_dead_local\下的setting.xml -->
   <!-- nexus 私服配置  maven从nexus下载jar
   <repositories>
@@ -346,5 +371,4 @@
        </snapshots>
   	</pluginRepository>
   </pluginRepositories>	-->
-  
 </project>

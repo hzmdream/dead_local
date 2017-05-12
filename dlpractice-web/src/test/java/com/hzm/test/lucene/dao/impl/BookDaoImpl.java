@@ -1,4 +1,4 @@
-package dl.test.lucene.dao.impl;
+package com.hzm.test.lucene.dao.impl;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,8 +7,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import dl.test.lucene.dao.BookDao;
-import dl.test.lucene.pojo.Book;
+import com.hzm.test.lucene.dao.BookDao;
+import com.hzm.test.lucene.pojo.Book;
 
 public class BookDaoImpl implements BookDao{
 

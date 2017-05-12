@@ -1,4 +1,4 @@
-package dl.test.lucene;
+package com.hzm.test.lucene;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,6 +19,7 @@ import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.index.Term;
+import org.apache.lucene.search.BooleanClause.Occur;
 import org.apache.lucene.search.BooleanQuery;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.NumericRangeQuery;
@@ -26,15 +27,14 @@ import org.apache.lucene.search.Query;
 import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TermQuery;
 import org.apache.lucene.search.TopDocs;
-import org.apache.lucene.search.BooleanClause.Occur;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
 import org.junit.Test;
 
-import dl.test.lucene.dao.BookDao;
-import dl.test.lucene.dao.impl.BookDaoImpl;
-import dl.test.lucene.pojo.Book;
+import com.hzm.test.lucene.dao.BookDao;
+import com.hzm.test.lucene.dao.impl.BookDaoImpl;
+import com.hzm.test.lucene.pojo.Book;
 
 public class IndexCreate {
 	

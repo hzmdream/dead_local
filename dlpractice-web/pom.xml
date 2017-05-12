@@ -13,8 +13,13 @@
 	<dependency>
 		<groupId>junit</groupId>
 		<artifactId>junit</artifactId>
-		<scope>test</scope>
 	</dependency>
+	<!-- maven自动部署项目到tomcat8 -->
+	<dependency>  
+        <groupId>org.apache.tomcat</groupId>  
+        <artifactId>tomcat-servlet-api</artifactId>  
+        <scope>provided</scope>  
+    </dependency> 
   	<!-- dlutils -->
   	<dependency>
 	   	<groupId>hzm.deadlocal</groupId>
@@ -169,4 +174,35 @@
 		<artifactId>lucene-queries</artifactId>
 	</dependency> -->
   </dependencies>
+  
+  <!-- build中包含了maven构建当前项目需要的信息 -->
+  <build>
+  	<!-- 插件配置 -->
+  		<plugins>
+  			<!-- maven 编译插件 -->
+  			<plugin>
+  				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+					<encoding>UTF-8</encoding>
+				</configuration>
+  			</plugin>
+  			<!-- maven tomcat7插件 -->
+  			<plugin>
+  				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<configuration>
+					<url>http://localhost:8081/manager/text</url>  
+                    <username>tomcat</username>  
+                    <password>tomcat</password>  
+                    <!-- <path>/dlpractice-web</path> -->
+					<!-- 端口号可以任意配置，这里因为nexus的tomcat配置的是8080，所以这里就配置8081 -->
+					<port>8081</port>
+					<path>/deadlocal</path>
+				</configuration>
+  			</plugin>
+  		</plugins>
+  </build>
 </project>

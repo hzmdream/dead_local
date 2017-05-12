@@ -1,4 +1,4 @@
-package dl.practice.javadate.differentdays;
+package com.hzm.test.javadate.differentdays;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

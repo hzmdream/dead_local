@@ -1,4 +1,4 @@
-package dl.dlutils;
+package com.hzm.test;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

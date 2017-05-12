@@ -1,4 +1,4 @@
-package dl.test.jedis;
+package com.hzm.test.jedis;
 
 import java.util.ArrayList;
 import java.util.List;

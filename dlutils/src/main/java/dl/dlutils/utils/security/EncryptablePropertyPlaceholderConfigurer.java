@@ -6,6 +6,8 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 
+import dl.dlutils.utils.encrypt.asymmetric.rsa.RSAUtil;
+
 
 public class EncryptablePropertyPlaceholderConfigurer extends PropertyPlaceholderConfigurer {
 
@@ -16,13 +18,14 @@ public class EncryptablePropertyPlaceholderConfigurer extends PropertyPlaceholde
 		try {
 			String username = props.getProperty(DLConstant.JDBC_DATASOURCE_USERNAME_KEY.getMessage());
 			if (username != null) {
-//				props.setProperty(DLConstant.JDBC_DATASOURCE_USERNAME_KEY.getMessage(), RSAUtil.decrypt(username));
-				props.setProperty(DLConstant.JDBC_DATASOURCE_USERNAME_KEY.getMessage(), "houzm_test");
+				props.setProperty(DLConstant.JDBC_DATASOURCE_USERNAME_KEY.getMessage(), RSAUtil.decrypt(username));
+//				props.setProperty(DLConstant.JDBC_DATASOURCE_USERNAME_KEY.getMessage(), "houzm_test");
 		    }
 		    
 		    String password = props.getProperty(DLConstant.JDBC_DATASOURCE_PASSWORD_KEY.getMessage());
 		    if (password != null) {
-		        props.setProperty(DLConstant.JDBC_DATASOURCE_PASSWORD_KEY.getMessage(), "houzm");
+		    	props.setProperty(DLConstant.JDBC_DATASOURCE_PASSWORD_KEY.getMessage(), RSAUtil.decrypt(password));
+//		        props.setProperty(DLConstant.JDBC_DATASOURCE_PASSWORD_KEY.getMessage(), "houzm");
 		    }
 		    
 		    String schema = props.getProperty(DLConstant.JDBC_DATASOURCE_SCHEMA_KEY.getMessage());

@@ -1,4 +1,4 @@
-package dl.test.jedis;
+package com.hzm.test.jedis;
 
 import redis.clients.jedis.Jedis;
 
