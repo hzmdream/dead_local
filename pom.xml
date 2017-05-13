@@ -16,6 +16,7 @@
   	<module>dlpractice-service</module>
     <module>dlutils</module>
     <module>dlpractice-note</module>
+    <module>dl-bg-html</module>
   </modules>
   
   <properties>
@@ -32,6 +33,7 @@
 	<jackson.version>2.8.7</jackson.version>
 	<druid.version>1.0.29</druid.version>
 	
+	<commonscodec.version>1.10</commonscodec.version>
 	<slf4j.version>1.7.7</slf4j.version> 
 	<logback.version>1.2.3</logback.version>
 	<lucene.version>4.10.3</lucene.version>
@@ -85,7 +87,11 @@
 			<artifactId>commons-fileupload</artifactId>
 			<version>1.2.1</version>
 		</dependency>
-  		
+  		<dependency>
+		    <groupId>commons-codec</groupId>
+		    <artifactId>commons-codec</artifactId>
+		    <version>${commonscodec.version}</version>
+		</dependency>
   		<!-- jackson -->
   		<dependency>
 	  		<groupId>com.fasterxml.jackson.core</groupId>
