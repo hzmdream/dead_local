@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>dead_local</title>
+    <style type="text/css">
+        .body{
+            text-align: center;
+            /*background-color: #f9f9f9;*/
+            background-image: url("image/hai.jpg");
+            font-family: Times, TimesNR, 'New Century Schoolbook',Georgia, 'New York', serif;
+        }
+        .signin{
+            /*登录div在body居中设置*/
+            position:absolute;
+            width:300px;
+            height:350px;
+            left:50%;
+            top:50%;
+            margin-left:-180px;
+            margin-top:-160px;
+            border:solid 1px #ccc;
+            z-index:99;
+            /*登录div样式设置*/
+            /*background-color: #ffffff;*/
+        }
+        .juzhong{
+            text-align: center;
+        }
+        .signin_table{
+            margin:0 auto;
+        }
+        .password{
+            text-align: left;
+        }
+        .signin_table_forgotpassword{
+            font-size: 0.1rem;
+            padding-bottom: 0rem;
+        }
+        .logo{
+            width:2rem;
+            height: 2rem;
+            padding-top: 1rem;
+        }
+        .submit{
+            width:100%;
+        }
+    </style>
+</head>
+<body class="body">
+    <div class="signin juzhong">
+        <div><img src="image/logo_nd.png" alt="" class="logo"></div>
+        <h2>Sign In</h2>
+        <table class="signin_table juzhong">
+            <tr>
+                <td class="signin_table_cols" colspan="2">Username or email address</td>
+            </tr>
+            <tr>
+                <td colspan="2"><input type="text"></td>
+            </tr>
+
+            <tr>
+                <td class="password">Password</td>
+                <td class="signin_table_forgotpassword">Forgot password?</td>
+            </tr>
+            <tr>
+                <td colspan="2"><input type="password"></td>
+            </tr>
+            <tr>
+                <td>huanyizhang</td>
+                <td><img src="" alt=""></td>
+            </tr>
+            <tr>
+                <td colspan="2"><input type="button" value="sign in" class="submit"></td>
+            </tr>
+            <tr>
+                <td colspan="2"><input type="radio">remeber me</td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
