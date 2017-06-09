@@ -20,10 +20,10 @@
         <artifactId>tomcat-servlet-api</artifactId>  
         <scope>provided</scope>  
     </dependency> 
-  	<!-- dlutils -->
+  	<!-- dl-utils -->
   	<dependency>
 	   	<groupId>hzm.deadlocal</groupId>
-	    <artifactId>dlutils</artifactId>
+	    <artifactId>dl-utils</artifactId>
 	    <version>0.0.1-SNAPSHOT</version>
   	</dependency>
   
@@ -180,7 +180,7 @@
   	<!-- 插件配置 -->
   		<plugins>
   			<!-- maven 编译插件 -->
-  			<plugin>
+  			<!-- <plugin>
   				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
@@ -188,21 +188,21 @@
 					<target>1.7</target>
 					<encoding>UTF-8</encoding>
 				</configuration>
-  			</plugin>
+  			</plugin>-->
   			<!-- maven tomcat7插件 -->
-  			<plugin>
+  			<!--<plugin>
   				<groupId>org.apache.tomcat.maven</groupId>
 				<artifactId>tomcat7-maven-plugin</artifactId>
 				<configuration>
 					<url>http://localhost:8081/manager/text</url>  
                     <username>tomcat</username>  
                     <password>tomcat</password>  
-                    <!-- <path>/dlpractice-web</path> -->
-					<!-- 端口号可以任意配置，这里因为nexus的tomcat配置的是8080，所以这里就配置8081 -->
+                    <path>/dlpractice-web</path>
+					端口号可以任意配置，这里因为nexus的tomcat配置的是8080，所以这里就配置8081
 					<port>8081</port>
 					<path>/deadlocal</path>
 				</configuration>
-  			</plugin>
+  			</plugin> -->
   		</plugins>
   </build>
 </project>

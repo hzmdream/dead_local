@@ -1,0 +1,228 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>hzm.deadlocal</groupId>
+    <artifactId>dlparent</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <groupId>hzm.deadlocal</groupId>
+  <artifactId>dl-web</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>dl-web</name>
+  <url>http://maven.apache.org</url>
+  <packaging>war</packaging>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  <dependencies>
+  <!-- junit -->
+	<dependency>
+		<groupId>junit</groupId>
+		<artifactId>junit</artifactId>
+	</dependency>
+	<!-- maven自动部署项目到tomcat8 -->
+	<dependency>  
+        <groupId>org.apache.tomcat</groupId>  
+        <artifactId>tomcat-servlet-api</artifactId>  
+        <scope>provided</scope>  
+    </dependency> 
+  	<!-- dl-utils -->
+  	<dependency>
+	   	<groupId>hzm.deadlocal</groupId>
+	    <artifactId>dl-utils</artifactId>
+	    <version>0.0.1-SNAPSHOT</version>
+  	</dependency>
+  	<!-- dl-common -->
+  	<dependency>
+	   	<groupId>hzm.deadlocal</groupId>
+	    <artifactId>dl-common</artifactId>
+	    <version>0.0.1-SNAPSHOT</version>
+  	</dependency>
+  	<!-- dl-base -->
+  	<dependency>
+	   	<groupId>hzm.deadlocal</groupId>
+	    <artifactId>dl-base</artifactId>
+	    <version>0.0.1-SNAPSHOT</version>
+  	</dependency>
+  
+  	<!-- redis cache client jedis -->
+	<dependency>
+		<groupId>redis.clients</groupId>
+		<artifactId>jedis</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework.data</groupId>
+		<artifactId>spring-data-redis</artifactId>
+	</dependency>
+	
+	<!-- druid -->
+	<dependency>
+	    <groupId>com.alibaba</groupId>
+	    <artifactId>druid</artifactId>
+	</dependency>
+	
+  	<!-- springframework -->
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-aop</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-beans</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-context</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-context-support</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-core</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-expression</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-jdbc</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-orm</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-tx</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-web</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-webmvc</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>aspectj</groupId>
+		<artifactId>aspectjrt</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>aspectj</groupId>
+		<artifactId>aspectjweaver</artifactId>
+	</dependency>
+	<!-- jdbc -->
+	<dependency>
+		<groupId>mysql</groupId>
+  		<artifactId>mysql-connector-java</artifactId>
+	</dependency>
+	<!-- hibernate -->
+	<dependency>
+		<groupId>org.hibernate</groupId>
+		<artifactId>hibernate-commons-annotations</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.hibernate</groupId>
+		<artifactId>hibernate-core</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.hibernate</groupId>
+		<artifactId>hibernate-entitymanager</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.hibernate</groupId>
+		<artifactId>hibernate-ehcache</artifactId>
+	</dependency>
+	<!-- servlet-api 如果不添加，servlet相关类导入会报错-->
+	<dependency>
+		<groupId>javax.servlet</groupId>
+		<artifactId>javax.servlet-api</artifactId>
+		<scope>provided</scope>
+	</dependency>
+	<!-- servlet-jsp-api -->
+	<dependency>
+		<groupId>javax.servlet.jsp</groupId>
+		<artifactId>jsp-api</artifactId>
+		<scope>provided</scope>
+	</dependency>
+	<!-- logback -->
+	<dependency> 
+	    <groupId>ch.qos.logback</groupId> 
+	    <artifactId>logback-access</artifactId> 
+	</dependency> 
+	<dependency> 
+	    <groupId>ch.qos.logback</groupId> 
+	    <artifactId>logback-core</artifactId> 
+	</dependency> 
+	<dependency> 
+	    <groupId>ch.qos.logback</groupId> 
+	    <artifactId>logback-classic</artifactId> 
+	</dependency> 
+	<dependency>  
+	    <groupId>org.logback-extensions</groupId>  
+	    <artifactId>logback-ext-spring</artifactId>  
+	</dependency>  
+	<dependency>  
+	    <groupId>org.slf4j</groupId>  
+	    <artifactId>jcl-over-slf4j</artifactId>  
+	</dependency>
+	
+	<!-- lucene -->
+	<dependency>
+		<groupId>org.apache.lucene</groupId>
+		<artifactId>lucene-core</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.apache.lucene</groupId>
+		<artifactId>lucene-analyzers-common</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.apache.lucene</groupId>
+		<artifactId>lucene-queryparser</artifactId>
+	</dependency>
+	<!-- <dependency>
+		<groupId>org.apache.lucene</groupId>
+		<artifactId>lucene-highlighter</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.apache.lucene</groupId>
+		<artifactId>lucene-queries</artifactId>
+	</dependency> -->
+  </dependencies>
+  
+  <!-- build中包含了maven构建当前项目需要的信息 -->
+  <build>
+  	<!-- 插件配置 -->
+  		<plugins>
+  			<!-- maven 编译插件 -->
+  			<plugin>
+  				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+					<encoding>UTF-8</encoding>
+				</configuration>
+  			</plugin>
+  			<!-- maven tomcat7插件 -->
+  			<plugin>
+  				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<configuration>
+					<url>http://localhost:8081/manager/text</url>  
+                    <username>tomcat</username>  
+                    <password>tomcat</password>  
+                    <!-- <path>/dlpractice-web</path> -->
+					<!-- 端口号可以任意配置，这里因为nexus的tomcat配置的是8080，所以这里就配置8081 -->
+					<port>8081</port>
+					<path>/dl-web</path>
+				</configuration>
+  			</plugin>
+  		</plugins>
+  </build>
+</project>

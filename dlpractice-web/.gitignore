@@ -1,1 +1,54 @@
-/target/
+﻿#以'#'号开头表示注释                                                                                                                          
+#配置语法：
+
+#　　以斜杠“/”开头表示目录；
+#　　以星号“*”通配多个字符；
+#　　以问号“?”通配单个字符
+#　　以方括号“[]”包含单个字符的匹配列表；
+#　　以叹号“!”表示不忽略(跟踪)匹配到的文件或目录；
+
+
+
+#
+# 忽略掉所有文件名是 .classpath的文件.
+.classpath
+.project
+.prefs
+.settings
+/target
+.idea
+.editorconfig
+# built application files
+*.apk
+*.ap_
+# files for the dex VM
+*.dex
+# Java class files
+*.class
+# generated files
+bin/
+gen/
+# Local configuration file (sdk path, etc)
+local.properties
+# Eclipse project files
+.DS_Store
+
+
+# 忽略所有生成的 html文件,
+#*.html
+
+# foo.html是手工维护的，所以例外.
+!foo.html
+
+# 忽略所有.o和 .a文件.
+*.[oa]
+
+
+
+#自己总结的
+#忽略所有.MF结尾的文件
+*.MF
+#忽略所有.lst结尾的文件
+*.lst
+#忽略所有pom.properties文件
+pom.properties
